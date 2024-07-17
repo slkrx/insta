@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+<div class="col-lg-6 col-md-11 m-4">
+  <h1>Following</h1>
+  {% for user_followed in users_followed %}
+  <div class="d-flex align-items-center">
+    <div class="me-4">
+      <img alt="" class="avatar" width="70rem" src="{{ user_followed.img_url }}" />
+    </div>
+    <div class="me-4">
+      <a href="/u/{{ user_followed.username }}/"> {{ user_followed.username }} </a>
+    </div>
+    <div class="me-4">
+      {{ user_followed.relationship }}
+    </div>
+    <div>
+      {% if user_followed.relationship == 'following' %}
+          <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+          <form action="{{ url_for('following') }}?target={{ url_for('show_following', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+              <input class="btn btn-primary" type="submit" name="unfollow" value="unfollow"/>
+              <input type="hidden" name="username" value="{{ user_followed.username }}"/>
+              <input type="hidden" name="operation" value="unfollow"/>
+          </form>
+      {% elif user_followed.relationship == 'not following' %}
+          <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+          <form action="{{ url_for('following') }}?target={{ url_for('show_following', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+              <input class="btn btn-primary" type="submit" name="follow" value="follow"/>
+              <input type="hidden" name="username" value="{{ user_followed.username }}"/>
+              <input type="hidden" name="operation" value="follow"/>
+          </form>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-lg-6 col-md-11 m-4">
+    <div>
+        <img class="avatar"
+        width="70rem"
+        alt="{{ user }}"
+        src="{{ url_for('download_image', filename=filename) }}">
+    </div>
+    <h1>{{ username }}</h1>
+    <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+    <form action="{{ url_for('accounts') }}?target={{ url_for('accounts_edit') }}" method="post" enctype="multipart/form-data">
+        <div class="mb-4">
+            <label for="avatarInput" class="form-label">Profile Picture</label>
+            <input id="avatarInput" class="form-control" type="file" name="file"/>
+        </div>
+        <div class="mb-4">
+            <label for="nameInput" class="form-label">Full Name</label>
+            <input id="full-name" class="form-control" type="text" name="fullname" value="{{ fullname }}"/>
+        </div>
+        <div class="mb-4">
+            <label for="emailInput" class="form-label">Email</label>
+            <input id="emailInput" class="form-control" type="text" name="email" value="{{ email }}"/>
+        </div>
+        <div class="mb-4">
+            <input class="btn btn-primary" type="submit" name="update" value="submit"/>
+        </div>
+        <input type="hidden" name="operation" value="edit_account"/>
+    </form>
+
+    <div class="mb-4">
+        <a href="{{ url_for('accounts_password') }}">Change Password</a>
+    </div>
+    <div class="mb-4">
+        <a href="{{ url_for('accounts_delete') }}">Delete Account</a>
+    </div>
+</div>
+{% endblock %}

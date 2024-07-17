@@ -1,0 +1,7 @@
+img.avatar {
+  clip-path: circle();
+}
+
+i {
+  font-size: 2em;
+}

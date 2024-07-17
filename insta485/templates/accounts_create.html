@@ -1,0 +1,38 @@
+{% extends "login_base.html" %} {% block content %}
+<div class="border rounded-4 p-4 d-flex justify-content-center">
+    <div class="row justify-content-center">
+        <div class="col">
+            <form action="{{ url_for('accounts') }}?target={{ url_for('show_index') }}" method="post" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="avatarInput" class="form-label">Profile picture</label>
+                    <input id="avatarInput" class="form-control" type="file" name="file" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="fullnameInput" class="form-label">Full name</label>
+                    <input id="fullnameInput" class="form-control" type="text" name="fullname" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="usernameInput" class="form-label">Username</label>
+                    <input id="usernameInput" class="form-control" type="text" name="username" required/>
+                </div>  
+                <div class="mb-4">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input id="emailInput" class="form-control" type="text" name="email" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="passwordInput" class="form-label">Password</label>
+                    <input id="passwordInput" class="form-control" type="password" name="password" required/>
+                </div>
+                <div class="mb-4">
+                    <input class="btn btn-primary" type="submit" name="signup" value="Sign up"/>
+                </div>
+                <input type="hidden" name="operation" value="create"/>
+            </form>
+            <div class="mb-4">
+                <span>Have an account?</span>
+                <a href="{{ url_for('login') }}">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

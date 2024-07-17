@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-lg-6 col-md-11 m-4">
+    <h1>{{ session['user'] }}</h1>
+    <!-- DO NOT CHANGE THIS -->
+    <form action="{{ url_for('accounts') }}?target={{ url_for('accounts_create') }}" method="post" enctype="multipart/form-data">
+        <input class="btn btn-danger" type="submit" name="delete" value="confirm delete account"/>
+        <input type="hidden" name="operation" value="delete"/>
+    </form>
+</div>
+{% endblock %}

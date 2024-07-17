@@ -1,0 +1,1 @@
+ssh -i eecs485p3.pem ubuntu@ec2-52-207-149-142.compute-1.amazonaws.com

@@ -1,0 +1,26 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 54.243.7.12...
+* TCP_NODELAY set
+* Connected to ec2-54-243-7-12.compute-1.amazonaws.com (54.243.7.12) port 80 (#0)
+> GET /static/js/bundle.js HTTP/1.1
+> Host: ec2-54-243-7-12.compute-1.amazonaws.com
+> User-Agent: curl/7.64.1
+> Accept: */*
+> Cookie: login=eyJ1c2VyIjoiYXdkZW9yaW8ifQ.YDxI_w.KWC7hvJTuWDLxse9yOI7OB-an3A
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.18.0 (Ubuntu)
+< Date: Mon, 01 Mar 2021 01:56:51 GMT
+< Content-Type: application/javascript; charset=utf-8
+< Content-Length: 908338
+< Connection: keep-alive
+< Last-Modified: Mon, 01 Mar 2021 01:48:16 GMT
+< Cache-Control: public, max-age=43200
+< Expires: Mon, 01 Mar 2021 13:56:51 GMT
+< ETag: "1614563296.5537608-908338-3954186017"
+< 
+{ [1090 bytes data]
+100  887k  100  887k    0     0  2534k      0 --:--:-- --:--:-- --:--:-- 2534k
+* Connection #0 to host ec2-54-243-7-12.compute-1.amazonaws.com left intact
+* Closing connection 0

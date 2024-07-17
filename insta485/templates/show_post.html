@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-lg-6 col-md-11 d-flex m-4">
+        <div class="post">
+            <div class="header mb-4">
+                <a href="/u/{{ post.owner }}/">
+                    <img class="avatar me-4"
+                    width="70rem"
+                    alt="{{ post.owner }}"
+                    src="{{ post.owner_img_url }}">
+                    {{ post.owner }}
+                </a>
+                •
+                <a href="/p/{{ post.postid }}/">{{ post.timestamp }}</a>
+            </div>
+            <img
+            alt="post"
+            class="rounded mb-4"
+            width="100%"
+            src="{{ post.img_url }}"
+            >
+            <p><strong>
+                {% if post.likes == 1 %}
+                    1 like
+                {% else %}
+                    {{ post.likes }} likes
+                {% endif %}
+            </strong></p>
+            {% for comment in post.comments %}
+            <div class="d-flex mb-4">
+                <p class="me-4">
+                    <a class="me-4" href="/u/{{ comment.owner }}/">
+                        {{ comment.owner }}
+                    </a>
+                    {{ comment.text }}
+                </p>
+                {% if session['user'] == comment.owner %}
+                    <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                    <form action="{{ url_for('comments') }}?target={{ url_for('show_post', postid_url_slug=post.postid) }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="operation" value="delete"/>
+                        <input type="hidden" name="commentid" value="{{ comment.commentid }}"/>
+                        <input class="btn btn-danger" type="submit" name="uncomment" value="delete"/>
+                    </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% if session['user'] == post.owner %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form class="mb-4" action="{{ url_for('posts') }}?target={{ url_for('show_user', user_url_slug=session['user']) }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="delete"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input class="btn btn-danger" type="submit" name="delete" value="delete this post"/>
+                </form>
+            {% endif %}
+            {% if post.liked_by_user %}
+                <form
+                action="{{ url_for('likes') }}?target={{ url_for('show_post', postid_url_slug=post.postid) }}"
+                method="post"
+                enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="unlike"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input class="btn btn-secondary mb-4" type="submit" name="unlike" value="unlike"/>
+                </form>
+            {% else %}
+                <form
+                action="{{ url_for('likes') }}?target={{ url_for('show_post', postid_url_slug=post.postid) }}"
+                method="post"
+                enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="like"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input class="btn btn-primary mb-4" type="submit" name="like" value="like"/>
+                </form>
+            {% endif %}
+            <form action="{{ url_for('comments') }}?target={{ url_for('show_post', postid_url_slug=post.postid) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="create"/>
+                <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                <div class="input-group">
+                    <input class="form-control inline" type="text" name="text" required/>
+                    <input class="btn btn-primary" type="submit" name="comment" value="comment"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

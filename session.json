@@ -1,0 +1,23 @@
+{
+    "__meta__": {
+        "about": "HTTPie session file",
+        "help": "https://httpie.org/doc#sessions",
+        "httpie": "2.4.0"
+    },
+    "auth": {
+        "password": null,
+        "type": null,
+        "username": null
+    },
+    "cookies": {
+        "login": {
+            "expires": null,
+            "path": "/",
+            "secure": false,
+            "value": "eyJ1c2VyIjoiYXdkZW9yaW8ifQ.YDmVuw.nkNZ_tce7F2ySpPL8bovpPP9tLU"
+        }
+    },
+    "headers": {
+        "Accept": "application/json, */*;q=0.5"
+    }
+}

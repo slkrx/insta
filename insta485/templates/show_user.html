@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-lg-6 col-md-11 m-4">
+        <h1>{{ username }}</h1>
+        {% if username == logname %}
+        {% elif followed_by_current_user %}
+            <div class="mb-4">
+                <p>following</p>
+                <form action="{{ url_for('following') }}?target={{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+                    <input class="btn btn-secondary" type="submit" name="unfollow" value="unfollow"/>
+                    <input type="hidden" name="username" value="{{ username }}"/>
+                    <input type="hidden" name="operation" value="unfollow"/>
+                </form>
+            </div>
+        {% else %}
+            <div class="mb-4">
+                <p>not following</p>
+                <form action="{{ url_for('following') }}?target={{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+                    <input class="btn btn-primary" type="submit" name="follow" value="follow"/>
+                    <input type="hidden" name="username" value="{{ username }}"/>
+                    <input type="hidden" name="operation" value="follow"/>
+                </form>
+            </div>
+        {% endif %}
+        <p>
+            <span>
+                {% if total_posts == 1 %}
+                    1 post
+                {% else %}
+                    {{ total_posts }} posts
+                {% endif %}
+            </span>
+            |
+            <a href="/u/{{ username }}/followers/">
+                {% if followers == 1 %}
+                    1 follower
+                {% else %}
+                    {{ followers }} followers
+                {% endif %}
+            </a>
+            |
+            <a href="/u/{{ username }}/following/">
+                {{ following }} following
+            </a>
+        </p>
+        <p>
+            {{ fullname }}
+        </p>
+        {% if session['user'] == username %}
+            <form action="{{ url_for('logout') }}" method="post" enctype="multipart/form-data">
+                <input class="btn btn-danger mb-4" type="submit" name="logout" value="Logout"/>
+            </form>
+            <div class="mb-4">
+                <a href="{{ url_for('accounts_edit') }}">Edit profile</a>
+            </div>
+            <form class="mb-4" action="{{ url_for('posts') }}?target={{ url_for('show_user', user_url_slug=session['user']) }}" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                    <input class="form-control" type="file" name="file" required/>
+                    <input class="btn btn-primary" type="submit" name="create_post" value="upload new post"/>
+                </div>
+                <input type="hidden" name="operation" value="create"/>
+            </form>
+        {% endif %}
+        {% for post in posts %}
+            <div class="mb-4">
+                <a href="/p/{{ post.postid }}/">
+                    <img
+                    alt="post"
+                    src="{{ post.filename }}"
+                    class="rounded"
+                    width="100%"
+                    >
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

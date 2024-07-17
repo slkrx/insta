@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+  <div class="d-flex justify-content-center my-3">
+    <h1>Explore</h1>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="col-lg-6 col-md-11">
+    {% for user in users %}
+      <div class="row mb-4">
+        <div class="col d-flex align-items-center justify-content-start">
+          <div class="me-4">
+            <img alt="" class="avatar" width="70rem" src="{{ url_for('download_image', filename=user.filename) }}" />
+          </div>
+          <div class="me-4">
+            <a href="{{ url_for('show_user', user_url_slug=user.username) }}"> {{ user.username }} </a>
+            <p>
+              {{ user.relationship }}
+            </p>
+          </div>
+          <div>
+            {% if user.relationship == 'following' %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="{{ url_for('following') }}?target={{ url_for('show_explore') }}" method="post" enctype="multipart/form-data">
+                    <input type="submit" name="unfollow" value="unfollow"/>
+                    <input type="hidden" name="username" value="{{ user.username }}"/>
+                    <input type="hidden" name="operation" value="unfollow"/>
+                </form>
+            {% elif user.relationship == 'not following' %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="{{ url_for('following') }}?target={{ url_for('show_explore') }}" method="post" enctype="multipart/form-data">
+                    <input class="btn btn-primary" type="submit" name="follow" value="follow"/>
+                    <input type="hidden" name="username" value="{{ user.username }}"/>
+                    <input type="hidden" name="operation" value="follow"/>
+                </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
